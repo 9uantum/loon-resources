@@ -114,8 +114,10 @@ DOMAIN-SUFFIX,sentry.io,REJECT
 ^https?:\/\/api\.douban\.com\/v\d\/app_ads\/ reject-dict
 ^https?:\/\/api\.douban\.com\/b.*\/common_ads\?.* reject-dict
 ^https?:\/\/img\d\.doubanio\.com\/view\/dale-online\/dale_ad\/ reject
+# 电影页广告接口（2026-08-27 抓包确认：只拦 dale_ad 图片会留空白槽位+死点击；
+# 直接对 movie/ad 返回空 JSON，App 无广告时不渲染槽位，与豆瓣服务器自带空响应行为一致）
+^https?:\/\/frodo\.douban\.com\/api\/v2\/movie\/ad reject-dict
 ^https?:\/\/frodo\.douban\.com\/api\/v2\/movie\/banner reject
-^https?:\/\/erebor\.douban\.com\/count\/\?ad= reject
 # 禁京东直播小窗（奶思同款）
 ^https?:\/\/api\.m\.jd\.com\/client\.action\?functionId=getWidgetV1052 reject
 # 注：基线中的 sh.jd.com/d 与 im-x.jd.com/dsp/np 两条重写已评估删除（详见仓库 README）
