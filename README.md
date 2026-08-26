@@ -11,8 +11,8 @@
 | AdsCore（广告核心） | `[Plugin]` | `https://raw.githubusercontent.com/9uantum/loon-resources/main/modules/ads-core/AdsCore.plugin` |
 | AdsHttpDns（HTTPDNS 拦截） | `[Plugin]` | `https://raw.githubusercontent.com/9uantum/loon-resources/main/modules/ads-httpdns/AdsHttpDns.plugin` |
 | MapsDirect（地图直连） | `[Plugin]` | `https://raw.githubusercontent.com/9uantum/loon-resources/main/modules/maps-direct/MapsDirect.plugin` |
+| Theater 远程规则 | `[Remote Rule]` | `https://raw.githubusercontent.com/9uantum/loon-resources/main/rules/theater.list`（订阅行 policy=Theater） |
 
-后续模块将陆续加入：rules/theater.list（Theater 远程规则）。
 
 ## 在 Loon 中添加
 
