@@ -1,0 +1,26 @@
+#!name=MapsDirect
+#!desc=高德/腾讯地图强制直连 + MITM 排除（瓦片/路网不解密）
+#!author=Codex (maintained for 9uantum)
+#!homepage=https://github.com/9uantum/loon-resources
+#!raw-url=https://raw.githubusercontent.com/9uantum/loon-resources/main/modules/maps-direct/MapsDirect.plugin
+#!tag=直连, 地图
+#!system=iOS, iPadOS, macOS
+#!loon_version=
+#!date=2026-08-26
+#!remark=迁移自 2026-08-26 基线 [Rule] 地图段；瓦片冗余行（rt0-3/p0-2）已被 DOMAIN-SUFFIX,map.gtimg.com 覆盖，删除。
+
+[Rule]
+# === 高德地图 (Autonavi) 路网及相关瓦片 - 强制直连 ===
+DOMAIN-SUFFIX,is.autonavi.com,DIRECT
+DOMAIN-SUFFIX,autonavi.com,DIRECT
+DOMAIN-SUFFIX,amap.com,DIRECT
+DOMAIN-SUFFIX,gaode.com,DIRECT
+
+# === 腾讯地图 (Tencent) 路网及相关瓦片 - 强制直连 ===
+DOMAIN-SUFFIX,map.gtimg.com,DIRECT
+DOMAIN-SUFFIX,map.qq.com,DIRECT
+DOMAIN-SUFFIX,lbs.qq.com,DIRECT
+
+[MITM]
+# 地图瓦片/路网不做 MITM（与基线 [Mitm] hostname 排除项一致）
+hostname = -p[0-3].map.gtimg.com,-wprd0[0-4].is.autonavi.com,-webst0[0-4].is.autonavi.com,-webrd0[0-4].is.autonavi.com,-lbs.qq.com,-map.qq.com
