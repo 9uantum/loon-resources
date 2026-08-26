@@ -1,0 +1,151 @@
+#!name=AdsCore
+#!desc=广告核心：穿山甲/Pangle、腾讯 GDT、京东、豆瓣、Soul、Parallels、10086 移动精准拦截（规则+重写+MITM 一体，来自 2026-08-26 基线迁移）
+#!author=Codex (maintained for 9uantum)
+#!homepage=https://github.com/9uantum/loon-config
+#!raw-url=https://raw.githubusercontent.com/9uantum/loon-config/main/modules/ads-core/AdsCore.plugin
+#!tag=去广告, ads-core
+#!system=iOS, iPadOS, macOS
+#!loon_version=
+#!date=2026-08-26
+#!remark=迁移自本地配置 [Rule]/[Rewrite] 广告段，顺序与基线一致；sh.jd.com / im-x.jd.com 两条重写经评估已删除（见仓库 README）。
+
+[Argument]
+AdsCore_enable = switch,true,false,tag=AdsCore-模块开关
+
+[Rule]
+# ============================================================
+# 广告/追踪拦截（迁移自基线 [Rule]，顺序保持不变）
+# 规则级 REJECT：直接断开连接，无需解密，覆盖所有未 MitM 的域名；
+# 对已 MitM 的域名，[Rewrite] 的 reject-dict 优先生效
+# （返回 200 空包，SDK 放弃重试更快），二者互补、非冗余。
+# ============================================================
+# 京东广告/埋点基础设施（奶思 JD.com.lpx 同款 14 条）
+DOMAIN-SUFFIX,jzt.jd.com,REJECT
+DOMAIN-SUFFIX,img-x.jd.com,REJECT
+DOMAIN-SUFFIX,du.jd.com,REJECT
+DOMAIN-SUFFIX,c-nfa.jd.com,REJECT
+DOMAIN-SUFFIX,cm.jd.com,REJECT
+DOMAIN-SUFFIX,jddebug.com,REJECT
+DOMAIN-SUFFIX,policy.jd.com,REJECT
+DOMAIN-SUFFIX,kepler.jd.com,REJECT
+DOMAIN-SUFFIX,bdsp.x.jd.com,REJECT
+DOMAIN-SUFFIX,keplerapi.jd.com,REJECT
+DOMAIN-SUFFIX,mapi.m.jd.com,REJECT
+DOMAIN-SUFFIX,ad.3.cn,REJECT
+DOMAIN-SUFFIX,jd.c-ptsp.com.cn,REJECT
+DOMAIN,dns.jd.com,REJECT
+# 抓包实测补充（本次 31 次 /log/sdk/v2 上报，拦掉降耗电；如遇功能异常可删）
+DOMAIN-SUFFIX,mars.jd.com,REJECT
+# ---- 字节/穿山甲广告 SDK（精确域名，不再整域拦 snssdk.com）----
+# 重要：aweme.snssdk.com 等是抖音核心业务域名（登录/视频/电商/收货地址），
+# 整域 REJECT 会误杀“选择收货地址”等正常功能。这里只拦精确广告/埋点子域，
+# 并在段尾加 snssdk.com DIRECT 兜底，保证任何未列出的业务子域不被远程规则误伤。
+DOMAIN-SUFFIX,pangolin-sdk-toutiao.com,REJECT
+DOMAIN-SUFFIX,pangolin-sdk-toutiao1.com,REJECT
+DOMAIN-SUFFIX,pangolin-sdk-toutiao-b.com,REJECT
+DOMAIN-SUFFIX,pangle.io,REJECT
+DOMAIN-SUFFIX,pangle.cn,REJECT
+DOMAIN,bds.snssdk.com,REJECT
+DOMAIN,log.snssdk.com,REJECT
+DOMAIN,sdfp.snssdk.com,REJECT
+DOMAIN,extlog.snssdk.com,REJECT
+DOMAIN,pangolin.snssdk.com,REJECT
+DOMAIN,mercury-sdk.snssdk.com,REJECT
+DOMAIN,mcs.snssdk.com,REJECT
+DOMAIN,tbm.snssdk.com,REJECT
+DOMAIN,xlog.snssdk.com,REJECT
+DOMAIN,temai.snssdk.com,REJECT
+DOMAIN,video-cn.snssdk.com,REJECT
+DOMAIN,i-lq.snssdk.com,REJECT
+DOMAIN,is-lq.snssdk.com,REJECT
+DOMAIN,ug-sinfonlinea.bytedance.com,REJECT
+DOMAIN,tnc3-alisc1.snssdk.com,REJECT
+DOMAIN,tnc3-aliec2.snssdk.com,REJECT
+DOMAIN,security-lq.snssdk.com,REJECT
+DOMAIN,gecko-pangle-lf.snssdk.com,REJECT
+DOMAIN,novel.pangolin-sdk-toutiao.com,REJECT
+DOMAIN,dm.bytedance.com,REJECT
+DOMAIN,dm.pstatp.com,REJECT
+DOMAIN,mssdk-bu.bytedance.com,REJECT
+DOMAIN,toblog.ctobsnssdk.com,REJECT
+DOMAIN,mon.zijieapi.com,REJECT
+AND,((DOMAIN-KEYWORD,-ad-),(DOMAIN-SUFFIX,byteimg.com)),REJECT
+AND,((DOMAIN-KEYWORD,-ttam-),(DOMAIN-SUFFIX,ibyteimg.com)),REJECT
+AND,((DOMAIN-KEYWORD,pangolin),(DOMAIN-SUFFIX,sgsnssdk.com)),REJECT
+AND,((DOMAIN-KEYWORD,sf),(DOMAIN-KEYWORD,-fe-scm.pglstatp-toutiao.com)),REJECT
+AND,((DOMAIN-KEYWORD,sf),(DOMAIN-KEYWORD,-static.i18n-pglstatp.com)),REJECT
+AND,((DOMAIN-KEYWORD,ads),(DOMAIN-KEYWORD,normal),(DOMAIN-SUFFIX,zijieapi.com)),REJECT
+AND,((DOMAIN-KEYWORD,ads),(DOMAIN-KEYWORD,-normal-lq),(DOMAIN-SUFFIX,zijieapi.com)),REJECT
+DOMAIN-KEYWORD,-ad-sign.byteimg.com,REJECT
+DOMAIN-KEYWORD,p3-pack.byteimg.com,REJECT
+DOMAIN-KEYWORD,p6-pack.byteimg.com,REJECT
+# 抖音业务域名兜底：未被上面精确规则命中的 snssdk.com 一律直连
+DOMAIN-SUFFIX,snssdk.com,DIRECT
+# ---- 豆瓣自有广告域名（2026-08-25 抓包补充 ad.doubanio.com / erebor）----
+DOMAIN-SUFFIX,erebor.douban.com,DIRECT
+DOMAIN-SUFFIX,ad.doubanio.com,REJECT
+DOMAIN,at3.doubanio.com,REJECT
+# ---- Soul ----
+DOMAIN,soul-commercial.soulapp.cn,REJECT
+DOMAIN,ad-r.soulapp.cn,REJECT
+DOMAIN,adx-track.domob.cn,REJECT
+DOMAIN,data-collector.soulapp.cn,REJECT
+# ---- Parallels 推广 ----
+DOMAIN-KEYWORD,myparallels.com,REJECT
+DOMAIN-KEYWORD,parallels.cn,REJECT
+DOMAIN-KEYWORD,parallels.com,REJECT
+# ---- 其它 ----
+DOMAIN,ntb.lanjie100.com,REJECT
+DOMAIN-SUFFIX,sentry.io,REJECT
+
+[Rewrite]
+# ===== 中国移动（迁移自基线，奶思 blockAds 同款 3 条 + 原脚本弹窗 1 条）=====
+^https?:\/\/client\.app\.coc\.10086\.cn\/biz-orange\/DN\/init\/startInit reject-200
+^https?:\/\/client\.app\.coc\.10086\.cn\/biz-orange\/DN\/explorePage\/getAdverList reject
+^https?:\/\/(client\.app\.coc|app)\.10086\.cn\/biz-orange\/DN\/emotionMarket reject
+^https?:\/\/h\.app\.coc\.10086\.cn\/biz-orange\/DH\/popupWindow\/getDetail reject-200
+
+# ===== 豆瓣（迁移自基线；第 1 条为 2026-08-25 抓包实测新增，后 5 条为奶思 blockAds 同款）=====
+# 开屏/首页广告接口（wool_scripts 未覆盖，本次抓包实测补充）
+^https?:\/\/frodo\.douban\.com\/api\/v2\/erebor\/feed_ad reject-dict
+#^https?:\/\/frodo\.douban\.com\/api\/v2\/home_banner reject-dict
+^https?:\/\/frodo\.douban\.com\/api\/v2\/home_ads reject-dict
+^https?:\/\/api\.douban\.com\/v\d\/app_ads\/ reject-dict
+^https?:\/\/api\.douban\.com\/b.*\/common_ads\?.* reject-dict
+^https?:\/\/img\d\.doubanio\.com\/view\/dale-online\/dale_ad\/ reject
+^https?:\/\/frodo\.douban\.com\/api\/v2\/movie\/banner reject
+^https?:\/\/erebor\.douban\.com\/count\/\?ad= reject
+# 禁京东直播小窗（奶思同款）
+^https?:\/\/api\.m\.jd\.com\/client\.action\?functionId=getWidgetV1052 reject
+# 注：基线中的 sh.jd.com/d 与 im-x.jd.com/dsp/np 两条重写已评估删除（详见仓库 README）
+
+# ===== 穿山甲广告（迁移自基线；返回 200 空 JSON，让 SDK 快速放弃重试）=====
+^https?:\/\/.*\.pangolin-sdk-toutiao\.com reject-dict
+^https?:\/\/.*\.pangolin-sdk-toutiao1\.com reject-dict
+^https?:\/\/.*\.pangolin-sdk-toutiao-b\.com reject-dict
+
+# ===== 穿山甲/字节广告 SDK 补充（酷安等卡顿修复，200 空包让 SDK 秒放弃）=====
+^https?:\/\/is\.snssdk\.com\/ reject-dict
+^https?:\/\/i\.snssdk\.com\/ reject-dict
+^https?:\/\/bds\.snssdk\.com\/ reject-dict
+^https?:\/\/sdfp\.snssdk\.com\/ reject-dict
+^https?:\/\/extlog\.snssdk\.com\/ reject-dict
+^https?:\/\/pangolin\.snssdk\.com\/ reject-dict
+^https?:\/\/mercury-sdk\.snssdk\.com\/ reject-dict
+^https?:\/\/mcs\.snssdk\.com\/ reject-dict
+^https?:\/\/tbm\.snssdk\.com\/ reject-dict
+^https?:\/\/xlog\.snssdk\.com\/ reject-dict
+^https?:\/\/temai\.snssdk\.com\/ reject-dict
+^https?:\/\/.*\.pglstatp-toutiao\.com\/ reject-dict
+^https?:\/\/.*\.i18n-pglstatp\.com\/ reject-dict
+
+# ===== 腾讯优量汇广告 SDK（迁移自基线）=====
+^https?:\/\/.*\.gdt\.qq\.com\/ reject-dict
+^https?:\/\/.*\.gdtimg\.com\/ reject-dict
+^https?:\/\/pgdt\.gtimg\.com\/ reject-dict
+^https?:\/\/.*\.ugdtimg\.com\/ reject-dict
+^https?:\/\/sdk\.e\.qq\.com\/ reject-dict
+^https?:\/\/.*\.ad\.qq\.com\/ reject-dict
+
+[MITM]
+hostname = *.pangolin-sdk-toutiao.com,*.pangolin-sdk-toutiao1.com,is.snssdk.com,i.snssdk.com,bds.snssdk.com,sdfp.snssdk.com,extlog.snssdk.com,pangolin.snssdk.com,mercury-sdk.snssdk.com,mcs.snssdk.com,tbm.snssdk.com,xlog.snssdk.com,temai.snssdk.com,*.pglstatp-toutiao.com,*.i18n-pglstatp.com,*.gdt.qq.com,*.gdtimg.com,pgdt.gtimg.com,*.ugdtimg.com,sdk.e.qq.com,*.ad.qq.com,api.m.jd.com,dns.jd.com,api.douban.com,img*.doubanio.com,frodo.douban.com,erebor.douban.com,client.app.coc.10086.cn,app.10086.cn,h.app.coc.10086.cn
