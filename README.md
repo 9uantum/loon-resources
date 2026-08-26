@@ -9,8 +9,9 @@
 | 资源 | 订阅类型 | URL |
 |---|---|---|
 | AdsCore（广告核心） | `[Plugin]` | `https://raw.githubusercontent.com/9uantum/loon-resources/main/modules/ads-core/AdsCore.plugin` |
+| AdsHttpDns（HTTPDNS 拦截） | `[Plugin]` | `https://raw.githubusercontent.com/9uantum/loon-resources/main/modules/ads-httpdns/AdsHttpDns.plugin` |
 
-后续模块将陆续加入：AdsHttpDns（HTTPDNS 拦截）、MapsDirect（地图直连）、rules/theater.list（Theater 远程规则）。
+后续模块将陆续加入：MapsDirect（地图直连）、rules/theater.list（Theater 远程规则）。
 
 ## 在 Loon 中添加
 
