@@ -1,8 +1,9 @@
 #!name=AdsCore
 #!desc=广告核心：穿山甲/Pangle、腾讯 GDT、京东、豆瓣、Soul、Parallels、10086 移动精准拦截（规则+重写+MITM 一体，来自 2026-08-26 基线迁移）
 #!author=Codex (maintained for 9uantum)
-#!homepage=https://github.com/9uantum/loon-config
-#!raw-url=https://raw.githubusercontent.com/9uantum/loon-config/main/modules/ads-core/AdsCore.plugin
+#!icon=https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/apps/AdblockPlus.png
+#!homepage=https://github.com/9uantum/loon-resources
+#!raw-url=https://raw.githubusercontent.com/9uantum/loon-resources/main/modules/ads-core/AdsCore.plugin
 #!tag=去广告, ads-core
 #!system=iOS, iPadOS, macOS
 #!loon_version=

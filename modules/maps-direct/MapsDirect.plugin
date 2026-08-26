@@ -1,6 +1,7 @@
 #!name=MapsDirect
 #!desc=高德/腾讯地图强制直连 + MITM 排除（瓦片/路网不解密）
 #!author=Codex (maintained for 9uantum)
+#!icon=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/China_Map.png
 #!homepage=https://github.com/9uantum/loon-resources
 #!raw-url=https://raw.githubusercontent.com/9uantum/loon-resources/main/modules/maps-direct/MapsDirect.plugin
 #!tag=直连, 地图

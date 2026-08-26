@@ -1,6 +1,7 @@
 #!name=AdsHttpDns
 #!desc=HTTPDNS 拦截（替代已禁用的 Block_HTTPDNS.lpx 精确版；含豆瓣 119.29.29.90 放行）
 #!author=Codex (maintained for 9uantum)
+#!icon=https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/apps/Category_Networking.png
 #!homepage=https://github.com/9uantum/loon-resources
 #!raw-url=https://raw.githubusercontent.com/9uantum/loon-resources/main/modules/ads-httpdns/AdsHttpDns.plugin
 #!tag=去广告, httpdns
