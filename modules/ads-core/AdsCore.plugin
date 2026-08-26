@@ -106,18 +106,18 @@ DOMAIN-SUFFIX,sentry.io,REJECT
 ^https?:\/\/(client\.app\.coc|app)\.10086\.cn\/biz-orange\/DN\/emotionMarket reject
 ^https?:\/\/h\.app\.coc\.10086\.cn\/biz-orange\/DH\/popupWindow\/getDetail reject-200
 
-# ===== 豆瓣（迁移自基线；第 1 条为 2026-08-25 抓包实测新增，后 5 条为奶思 blockAds 同款）=====
-# 开屏/首页广告接口（wool_scripts 未覆盖，本次抓包实测补充）
-^https?:\/\/frodo\.douban\.com\/api\/v2\/erebor\/feed_ad reject-dict
-#^https?:\/\/frodo\.douban\.com\/api\/v2\/home_banner reject-dict
-^https?:\/\/frodo\.douban\.com\/api\/v2\/home_ads reject-dict
+# ===== 豆瓣（App Store 版）=====
+# 关键：MITM 并重写 frodo.douban.com / img*.doubanio.com / erebor.douban.com
+# 会导致评论、电影详情、“我的”页加载异常（2026-08-27 与旧可用配置对比确认）。
+# 这里只保留 api.douban.com 上的开屏 + 公共广告重写，不 MITM 其它豆瓣域名。
 ^https?:\/\/api\.douban\.com\/v\d\/app_ads\/ reject-dict
 ^https?:\/\/api\.douban\.com\/b.*\/common_ads\?.* reject-dict
-^https?:\/\/img\d\.doubanio\.com\/view\/dale-online\/dale_ad\/ reject
-# 电影页广告接口（2026-08-27 抓包确认：只拦 dale_ad 图片会留空白槽位+死点击；
-# 直接对 movie/ad 返回空 JSON，App 无广告时不渲染槽位，与豆瓣服务器自带空响应行为一致）
-^https?:\/\/frodo\.douban\.com\/api\/v2\/movie\/ad reject-dict
-^https?:\/\/frodo\.douban\.com\/api\/v2\/movie\/banner reject
+# 以下重写需要 frodo/img 域名 MITM，已停用（会破坏正常页面）：
+#^https?:\/\/frodo\.douban\.com\/api\/v2\/erebor\/feed_ad reject-dict
+#^https?:\/\/frodo\.douban\.com\/api\/v2\/home_ads reject-dict
+#^https?:\/\/img\d\.doubanio\.com\/view\/dale-online\/dale_ad\/ reject
+#^https?:\/\/frodo\.douban\.com\/api\/v2\/movie\/ad reject-dict
+#^https?:\/\/frodo\.douban\.com\/api\/v2\/movie\/banner reject
 # 禁京东直播小窗（奶思同款）
 ^https?:\/\/api\.m\.jd\.com\/client\.action\?functionId=getWidgetV1052 reject
 # 注：基线中的 sh.jd.com/d 与 im-x.jd.com/dsp/np 两条重写已评估删除（详见仓库 README）
@@ -151,4 +151,4 @@ DOMAIN-SUFFIX,sentry.io,REJECT
 ^https?:\/\/.*\.ad\.qq\.com\/ reject-dict
 
 [MITM]
-hostname = *.pangolin-sdk-toutiao.com,*.pangolin-sdk-toutiao1.com,is.snssdk.com,i.snssdk.com,bds.snssdk.com,sdfp.snssdk.com,extlog.snssdk.com,pangolin.snssdk.com,mercury-sdk.snssdk.com,mcs.snssdk.com,tbm.snssdk.com,xlog.snssdk.com,temai.snssdk.com,*.pglstatp-toutiao.com,*.i18n-pglstatp.com,*.gdt.qq.com,*.gdtimg.com,pgdt.gtimg.com,*.ugdtimg.com,sdk.e.qq.com,*.ad.qq.com,api.m.jd.com,dns.jd.com,api.douban.com,img*.doubanio.com,frodo.douban.com,erebor.douban.com,client.app.coc.10086.cn,app.10086.cn,h.app.coc.10086.cn
+hostname = *.pangolin-sdk-toutiao.com,*.pangolin-sdk-toutiao1.com,is.snssdk.com,i.snssdk.com,bds.snssdk.com,sdfp.snssdk.com,extlog.snssdk.com,pangolin.snssdk.com,mercury-sdk.snssdk.com,mcs.snssdk.com,tbm.snssdk.com,xlog.snssdk.com,temai.snssdk.com,*.pglstatp-toutiao.com,*.i18n-pglstatp.com,*.gdt.qq.com,*.gdtimg.com,pgdt.gtimg.com,*.ugdtimg.com,sdk.e.qq.com,*.ad.qq.com,api.m.jd.com,dns.jd.com,api.douban.com,client.app.coc.10086.cn,app.10086.cn,h.app.coc.10086.cn
