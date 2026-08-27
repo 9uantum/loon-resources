@@ -86,6 +86,8 @@ DOMAIN-SUFFIX,snssdk.com,DIRECT
 DOMAIN-SUFFIX,erebor.douban.com,DIRECT
 DOMAIN-SUFFIX,ad.doubanio.com,REJECT
 DOMAIN,at3.doubanio.com,REJECT
+# ---- 12306 广告域（配合 kelee 12306 脚本；若本地 REJECT 会掐断 getAdList 请求导致开屏倒计时，必须 DIRECT）----
+DOMAIN,ad.12306.cn,DIRECT
 # ---- Soul ----
 DOMAIN,soul-commercial.soulapp.cn,REJECT
 DOMAIN,ad-r.soulapp.cn,REJECT
