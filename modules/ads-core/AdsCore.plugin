@@ -155,5 +155,9 @@ DOMAIN-SUFFIX,sentry.io,REJECT
 ^https?:\/\/sdk\.e\.qq\.com\/ reject-dict
 ^https?:\/\/.*\.ad\.qq\.com\/ reject-dict
 
+[Script]
+# 12306 开屏秒跳（自托管健壮版；kelee 版在 Loon 上因拿不到请求体失效，导致开屏倒计时）
+http-request ^https:\/\/ad\.12306\.cn\/ad\/ser\/getAdList script-path=https://raw.githubusercontent.com/9uantum/loon-resources/main/modules/ads-core/scripts/12306_splash.js, requires-body=true, timeout=10, tag=12306开屏秒跳
+
 [MITM]
-hostname = *.pangolin-sdk-toutiao.com,*.pangolin-sdk-toutiao1.com,is.snssdk.com,i.snssdk.com,bds.snssdk.com,sdfp.snssdk.com,extlog.snssdk.com,pangolin.snssdk.com,mercury-sdk.snssdk.com,mcs.snssdk.com,tbm.snssdk.com,xlog.snssdk.com,temai.snssdk.com,*.pglstatp-toutiao.com,*.i18n-pglstatp.com,*.gdt.qq.com,*.gdtimg.com,pgdt.gtimg.com,*.ugdtimg.com,sdk.e.qq.com,*.ad.qq.com,api.m.jd.com,dns.jd.com,api.douban.com,img*.doubanio.com,erebor.douban.com,client.app.coc.10086.cn,app.10086.cn,h.app.coc.10086.cn
+hostname = *.pangolin-sdk-toutiao.com,*.pangolin-sdk-toutiao1.com,is.snssdk.com,i.snssdk.com,bds.snssdk.com,sdfp.snssdk.com,extlog.snssdk.com,pangolin.snssdk.com,mercury-sdk.snssdk.com,mcs.snssdk.com,tbm.snssdk.com,xlog.snssdk.com,temai.snssdk.com,*.pglstatp-toutiao.com,*.i18n-pglstatp.com,*.gdt.qq.com,*.gdtimg.com,pgdt.gtimg.com,*.ugdtimg.com,sdk.e.qq.com,*.ad.qq.com,api.m.jd.com,dns.jd.com,api.douban.com,img*.doubanio.com,erebor.douban.com,ad.12306.cn,client.app.coc.10086.cn,app.10086.cn,h.app.coc.10086.cn

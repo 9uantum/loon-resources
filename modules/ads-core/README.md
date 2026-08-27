@@ -10,6 +10,7 @@
 - 基线中的 `sh.jd.com/d`（0 字节 gif 曝光像素）与 `im-x.jd.com/dsp/np`（服务端已 404）经评估后**删除**：
   两条重写原无对应 MITM hostname，HTTPS 下本就不生效；补 hostname 需额外解密开销而收益可忽略，故不迁移。
 - 豆瓣（ad.doubanio.com、at3 + api.douban.com 开屏重写；frodo.douban.com 因 SSL Pinning 已从 MITM 永久移除，依赖它的 4 条重写失效注释保留）
+- 12306 开屏秒跳（[scripts/12306_splash.js](scripts/12306_splash.js)，自托管健壮版；kelee 版脚本在 Loon 上因拿不到请求体失效，本脚本兜底返回 `skipTime:1`，避免开屏倒计时）
 - Soul、Parallels、sentry.io 等杂项
 - 内部兜底放行（snssdk.com DIRECT 等）随模块整体迁移，保证广告拦截不失效
 
