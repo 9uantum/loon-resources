@@ -1,5 +1,5 @@
 #!name=AdsCore
-#!desc=广告核心：穿山甲/Pangle、腾讯 GDT、京东、豆瓣、Soul、Parallels、10086 移动精准拦截（规则+重写+MITM 一体，来自 2026-08-26 基线迁移）
+#!desc=广告核心：穿山甲/Pangle、腾讯 GDT、京东、豆瓣、Parallels、10086 移动精准拦截（规则+重写+MITM 一体，来自 2026-08-26 基线迁移）
 #!author=Codex (maintained for 9uantum)
 #!icon=https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/apps/AdblockPlus.png
 #!homepage=https://github.com/9uantum/loon-resources
@@ -88,11 +88,6 @@ DOMAIN-SUFFIX,ad.doubanio.com,REJECT
 DOMAIN,at3.doubanio.com,REJECT
 # ---- 12306 广告域（配合 kelee 12306 脚本；若本地 REJECT 会掐断 getAdList 请求导致开屏倒计时，必须 DIRECT）----
 DOMAIN,ad.12306.cn,DIRECT
-# ---- Soul ----
-DOMAIN,soul-commercial.soulapp.cn,REJECT
-DOMAIN,ad-r.soulapp.cn,REJECT
-DOMAIN,adx-track.domob.cn,REJECT
-DOMAIN,data-collector.soulapp.cn,REJECT
 # ---- Parallels 推广 ----
 DOMAIN-KEYWORD,myparallels.com,REJECT
 DOMAIN-KEYWORD,parallels.cn,REJECT
